@@ -1,0 +1,8 @@
+/.idea/Screenshot.iml
+/.idea/inspectionProfiles/profiles_settings.xml
+.git/objects/pack
+!/policy.xml
+*.conf
+*.pyc
+*.idx
+*.xml

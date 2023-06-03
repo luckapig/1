@@ -1,0 +1,57 @@
+[
+  {
+    "url": "https://alist.learnonly.xyz",
+    "timeout": 15,
+    "real_time_out": 15,
+    "height": 1080,
+    "width": 1920
+  },
+  
+  {
+    "url": "https://firefox.pigp.repl.co",
+    "timeout": 10,
+    "real_time_out": 5,
+    "height": 3240,
+    "width": 1920
+  },
+  
+  {
+    "url": "https://v12group.safe-education.repl.co",
+    "timeout": 10,
+    "real_time_out": 5,
+    "height": 3240,
+    "width": 1920
+  },
+  
+  {
+    "url": "https://uptime.pighog.repl.co",
+    "timeout": 10,
+    "real_time_out": 5,
+    "height": 3240,
+    "width": 1920
+  },
+  
+  {
+    "url": "https://alist.piged.repl.co",
+    "timeout": 10,
+    "real_time_out": 5,
+    "height": 3240,
+    "width": 1920
+  },
+  
+  {
+    "url": "https://alist.pighog.repl.co",
+    "timeout": 10,
+    "real_time_out": 5,
+    "height": 3240,
+    "width": 1920
+  },
+  
+  {
+    "url": "https://firefox.pighog.repl.co",
+    "timeout": 10,
+    "real_time_out": 5,
+    "height": 3240,
+    "width": 1920
+  }
+]

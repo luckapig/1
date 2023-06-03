@@ -1,0 +1,62 @@
+name: release backup
+on: 
+  schedule:
+    - cron: '17 0 */3 * *'
+  workflow_dispatch:
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+
+      - name: Install Rclone
+        run: |
+         git pull origin main
+         uname -a
+         sudo dpkg -i rclone-v1.58.1-linux-amd64.deb
+
+      - name: Unzip config #解压配置文件
+        run: |
+         mkdir -p ~/.config/rclone/
+         unzip -P ${{ secrets.PASSWD }} rclone.zip -d ~/.config/rclone/
+
+      - name: sync onedrive #整理onedrive文件
+        run: |
+          rclone sync e5:/websnap ./save/
+          ls -a save
+          sudo sh del.sh
+          rclone sync ./save/ e5:/websnap
+
+      - name: Setup Imagemagick
+        run: sudo apt-get install imagemagick -y
+        
+      - name: Make PDF
+        id: make_pdf
+        run: |
+          sudo cp policy.xml /etc/ImageMagick-6/
+          sudo sh pdf.sh
+          
+      - name: Create timestamp
+        id: create_timestamp
+        run: echo "::set-output name=timestamp::$(date '+%Y%m%d%H%M%s')"
+        shell: bash
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.MY_GIT_TOKEN }}
+        with:
+          tag_name: Auto-${{ steps.create_timestamp.outputs.timestamp }}
+          release_name: Release-${{ steps.create_timestamp.outputs.timestamp }}
+          body: ${{ steps.tag_version.outputs.changelog }}
+          files: pdf/*
+          draft: false
+          prerelease: false
